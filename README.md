@@ -1,2 +1,2 @@
-# rakuten-prevention-frontend
+# rakutan-prevention-frontend
 Rakutan Prevention Frontend
