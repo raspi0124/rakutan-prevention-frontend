@@ -25,7 +25,11 @@
 
 <template>
   <v-app-bar :style="{ height: '80px' }" elevation="0" class="px-4 pt-1">
-    <a class="title">Tsuku-Alert</a>
+    <v-app-bar-title
+      @click="$router.push('/')"
+      style="color: #165b6a; cursor: pointer; font-weight: bold"
+      >Tsuku-Alert</v-app-bar-title
+    >
     <v-menu v-if="user" v-model:open="menu" offset-y>
       <template v-slot:activator="{ props }">
         <v-avatar v-bind="props" @click="menu = !menu" style="cursor: pointer">
@@ -35,23 +39,24 @@
       <v-list>
         <v-list-item @click="menu = false">
           <v-list-item-content>
-            <v-list-item-title>Profile</v-list-item-title>
+            <v-list-item-title
+              style="cursor: pointer"
+              @click="$router.push('/settings')"
+              >設定</v-list-item-title
+            >
           </v-list-item-content>
         </v-list-item>
         <v-list-item @click="menu = false">
           <v-list-item-content>
-            <v-list-item-title>Settings</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item @click="menu = false">
-          <v-list-item-content>
-            <v-list-item-title>Logout</v-list-item-title>
+            <v-list-item-title>ログアウト</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-menu>
     <span v-else>
-      <NuxtLink to="/login">ログイン</NuxtLink>
+      <NuxtLink to="/login">
+        <v-btn x-large color="primary" text>ログイン</v-btn>
+      </NuxtLink>
     </span>
   </v-app-bar>
 </template>
