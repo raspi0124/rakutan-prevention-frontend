@@ -1,5 +1,8 @@
 <script setup lang="ts">
   import { useRoute } from "vue-router";
+  import { useApi } from "@/composables/useApi";
+
+  const { createAccount } = useApi();
 
   onMounted(async () => {
     const $route = useRoute();
@@ -12,9 +15,17 @@
       console.error("Error:", error, error_description);
       return;
     }
+
     console.log("mounted");
     const $auth = useAuth();
     $auth.loginWith("auth0");
+
+    if ($auth.user) {
+      console.log("User is logged in");
+      createAccount(null).then((response) => {
+        console.log(response);
+      });
+    }
   });
 </script>
 

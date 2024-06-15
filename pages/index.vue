@@ -2,6 +2,10 @@
   const isLoggedin = ref(false);
   const user = ref(null);
 
+  definePageMeta({
+    auth: false,
+  });
+
   onMounted(async () => {
     console.log("mounted");
     const $auth = useAuth();
@@ -21,7 +25,6 @@
   <head>
     <meta charset="UTF-8" />
     <title>ホーム | Tsuku-Alert</title>
-    <link rel="stylesheet" href="main-style.css" />
   </head>
 
   <body>
@@ -29,34 +32,31 @@
 
     <v-main>
       <v-container
-        class="fill-height d-flex flex-column justify-center align-center text-center"
+        class="fill-height d-flex flex-column justify-center align-center"
       >
-        <div class="triangle"></div>
-        <v-typography class="page-title" variant="h3">Tsuku-Alert</v-typography>
-        <v-typography class="exp" variant="body1">
-          <span class="bold">「Tsuku-Alert」</span>は筑波大生のための<span
-            class="bold"
-            >スマート授業通知システム</span
-          >です。
-        </v-typography>
-        <v-typography class="exp" variant="body1">
-          <span class="bold">授業場所・時間・出席確認</span>を通知します。
-        </v-typography>
+        <triangleBanner
+          title="Tsuku-Alert"
+          paragraph="「Tsuku-Alert」は筑波大生のためのスマート授業通知システムです。授業場所・時間・出席確認を通知します。"
+        />
 
-        <v-row class="mt-4" justify="center" no-gutters>
-          <v-col class="d-flex justify-center" cols="12" sm="auto">
-            <v-btn class="btn-1" large href="#">履修登録確認</v-btn>
+        <v-row class="mt-4" justify="center">
+          <!-- First Button -->
+          <v-col cols="12" sm="12" md="6" lg="4">
+            <v-btn class="btn-1" size="x-large" block href="#"
+              >履修登録確認</v-btn
+            >
           </v-col>
-          <v-col class="d-flex justify-center" cols="12" sm="auto">
-            <v-btn class="btn-2" large href="#">出欠席確認</v-btn>
+          <!-- Second Button -->
+          <v-col cols="12" sm="12" md="6" lg="4">
+            <v-btn class="btn-2" size="x-large" block href="#"
+              >出欠席確認</v-btn
+            >
           </v-col>
-        </v-row>
-        <v-row class="mt-4" justify="center" no-gutters>
-          <v-col class="d-flex justify-center" cols="12" sm="auto">
-            <v-btn class="btn-3" large href="#">アラーム設定</v-btn>
-          </v-col>
-          <v-col class="d-flex justify-center" cols="12" sm="auto">
-            <v-btn class="btn-4" large href="#">その他の設定</v-btn>
+          <!-- Third Button -->
+          <v-col cols="12" sm="12" md="6" lg="4">
+            <v-btn class="btn-3" size="x-large" block to="/settings"
+              >設定</v-btn
+            >
           </v-col>
         </v-row>
       </v-container>
@@ -65,70 +65,39 @@
 </template>
 
 <style scoped>
-  .page-title {
-    color: #165b6a;
-    font-size: 3rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-
-  .exp {
-    color: black;
-    font-size: 1rem;
-    margin-bottom: 10px;
-    padding: 0 1rem;
-    box-sizing: border-box;
-  }
-
-  .triangle {
-    width: 0;
-    height: 0;
-    border-right: 30vw solid transparent;
-    border-left: 30vw solid transparent;
-    border-top: 15vw solid #e5e5e5;
-    margin-bottom: 20px;
-  }
-
   .btn-1 {
+    bottom: 200px;
+    padding: 50px 70px;
     background: #beffb8;
     color: #5e845b;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 10px;
+    border: none;
   }
 
   .btn-2 {
+    bottom: 200px;
+    padding: 50px 70px;
     background: #ffb8c2;
     color: #8e646c;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 10px;
+    border: none;
   }
 
   .btn-3 {
-    background: #fff8b8;
-    color: #8e8a61;
-  }
-
-  .btn-4 {
+    bottom: 200px;
+    padding: 50px 70px;
     background: #b8ddff;
     color: #576979;
-  }
-
-  .bold {
+    font-size: 30px;
     font-weight: bold;
-    color: #165b6a;
+    border-radius: 10px;
+    border: none;
   }
-
   .mt-4 {
-    margin-top: 2rem !important;
-  }
-
-  @media (max-width: 600px) {
-    .page-title {
-      font-size: 2rem;
-    }
-    .exp {
-      font-size: 0.875rem;
-    }
-    .triangle {
-      border-right: 45vw solid transparent;
-      border-left: 45vw solid transparent;
-      border-top: 22.5vw solid #e5e5e5;
-    }
+    margin-top: 16rem !important;
   }
 </style>
