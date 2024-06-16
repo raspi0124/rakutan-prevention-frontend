@@ -45,8 +45,7 @@
 
   .content {
     position: relative;
-
-    color: #000; /* Adjust text color if needed */
+    color: #006a79;
   }
 
   h1,

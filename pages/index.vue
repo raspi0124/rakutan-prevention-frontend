@@ -48,7 +48,7 @@
           </v-col>
           <!-- Second Button -->
           <v-col cols="12" sm="12" md="6" lg="4">
-            <v-btn class="btn-2" size="x-large" block href="#"
+            <v-btn class="btn-2" size="x-large" block to="/attendances"
               >出欠席確認</v-btn
             >
           </v-col>

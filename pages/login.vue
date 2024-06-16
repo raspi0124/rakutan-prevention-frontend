@@ -15,17 +15,13 @@
       console.error("Error:", error, error_description);
       return;
     }
-
+    if ($auth.user) {
+      console.log("User is logged in");
+      return;
+    }
     console.log("mounted");
     const $auth = useAuth();
     $auth.loginWith("auth0");
-
-    if ($auth.user) {
-      console.log("User is logged in");
-      createAccount(null).then((response) => {
-        console.log(response);
-      });
-    }
   });
 </script>
 

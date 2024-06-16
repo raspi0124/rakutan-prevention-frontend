@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useApi } from "@/composables/useApi";
-
+  const { $toast } = useNuxtApp();
   const { getAccount, updateAccount } = useApi();
   //Data
   const isLoggedin = ref(false);
@@ -12,7 +12,7 @@
   const getAndInsertPhoneNumber = async () => {
     console.log("TEST");
     const response = await getAccount(user.value.sub);
-    phone_number.value = response.phone_number;
+    phone_number.value = response.data.phone_number;
   };
 
   const submit = () => {
