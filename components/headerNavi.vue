@@ -21,6 +21,12 @@
   });
 
   const menu = ref(false);
+
+  const logout = async () => {
+    console.log("logout");
+    const $auth = useAuth();
+    await $auth.logout();
+  };
 </script>
 
 <template>
@@ -48,7 +54,9 @@
         </v-list-item>
         <v-list-item @click="menu = false">
           <v-list-item-content>
-            <v-list-item-title>ログアウト</v-list-item-title>
+            <v-list-item-title style="cursor: pointer" @click="logout"
+              >ログアウト</v-list-item-title
+            >
           </v-list-item-content>
         </v-list-item>
       </v-list>

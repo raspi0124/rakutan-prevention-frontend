@@ -23,6 +23,7 @@ export default defineNuxtConfig({
         domain: "raspi0124-public.jp.auth0.com",
         clientId: "jCqc4NlJHtqgxpK03fpUonSQ4ILnTyIO",
         audience: "https://rp-api.raspi0124.dev/",
+        logoutRedirectUri: "https://rakutan-prevention-frontend.pages.dev/",
       },
     },
   },
