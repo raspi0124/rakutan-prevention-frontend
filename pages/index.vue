@@ -42,7 +42,7 @@
         <v-row class="mt-4" justify="center">
           <!-- First Button -->
           <v-col cols="12" sm="12" md="6" lg="4">
-            <v-btn class="btn-1" size="x-large" block href="#"
+            <v-btn class="btn-1" size="x-large" block to="/registrations"
               >履修登録確認</v-btn
             >
           </v-col>

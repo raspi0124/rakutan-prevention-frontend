@@ -19,14 +19,8 @@
 <template>
   <header-navi :isLoggedin="isLoggedin" :user="user" />
   <v-main>
+    <triangleBanner title="履修の登録" paragraph="履修の登録を行います。" />
     <v-container>
-      <v-row justify="center">
-        <v-col cols="12" class="text-center">
-          <div class="triangle mx-auto"></div>
-          <h1 class="page-title">履修状況登録</h1>
-        </v-col>
-      </v-row>
-
       <v-row justify="center">
         <v-col class="text-center">
           <v-btn class="for-button" outlined>春A</v-btn>

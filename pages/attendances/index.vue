@@ -101,6 +101,10 @@
             <template v-slot:top>
               <v-toolbar flat>
                 <v-toolbar-title>出欠席確認</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" to="/registrations"
+                  >履修を登録する</v-btn
+                >
               </v-toolbar>
             </template>
             <template v-slot:item.absences="{ item }">
