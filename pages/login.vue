@@ -15,13 +15,14 @@
       console.error("Error:", error, error_description);
       return;
     }
-    console.log("mounted");
     const $auth = useAuth();
-    $auth.loginWith("auth0");
+
     if ($auth.user) {
       console.log("User is logged in");
       $router.push("/");
     }
+    console.log("mounted");
+    $auth.loginWith("auth0");
   });
 </script>
 

@@ -48,6 +48,7 @@
         console.log("200");
         $toast.success("更新しました!");
         dialog.value = false;
+        updateAttendanceLoading.value = false;
       } else {
         console.error("updateAttendance returned undefined or null");
         $toast.error("更新に失敗しました");
