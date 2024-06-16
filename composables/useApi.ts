@@ -39,7 +39,10 @@ export function useApi() {
       throw new Error(errorData.message || "Error making request");
     }
 
-    return response.json();
+    return {
+      status: response.status,
+      data: await response.json(),
+    };
   };
 
   const createAccount = async (
@@ -132,6 +135,19 @@ export function useApi() {
     return request(url, options);
   };
 
+  const updateRegisteredClass = async (
+    user_id: string,
+    class_id: string,
+    absences: number
+  ): Promise<{ message: string }> => {
+    const url = `/api/class_registrations/${user_id}/${class_id}`;
+    const options = {
+      method: "PUT",
+      body: JSON.stringify({ absences }),
+    };
+    return request(url, options);
+  };
+
   const unregisterClass = async (
     user_id: string,
     class_id: string
@@ -153,6 +169,7 @@ export function useApi() {
     updateClass,
     deleteClass,
     listClassRegistrations,
+    updateRegisteredClass,
     registerClass,
     unregisterClass,
   };
