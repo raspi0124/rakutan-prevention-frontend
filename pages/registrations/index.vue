@@ -3,7 +3,9 @@
   const user = ref(null);
   import { useApi } from "@/composables/useApi";
   const { $toast } = useNuxtApp();
-  const { getAccount, updateAccount } = useApi();
+  const { listClasses } = useApi();
+
+  const classes = ref();
   onMounted(async () => {
     console.log("mounted");
     const $auth = useAuth();
@@ -16,6 +18,17 @@
     } else {
       isLoggedin.value = false;
     }
+    try {
+      const response = await listClasses();
+      console.log(response);
+      if (response.status === 200) {
+        classes.value = response.data;
+      } else {
+        console.error("listClasses returned undefined or null");
+      }
+    } catch (error) {
+      console.error("Error in listClasses:", error);
+    }
   });
 </script>
 <template>
@@ -23,45 +36,20 @@
   <v-main>
     <triangleBanner title="履修の登録" paragraph="履修の登録を行います。" />
     <v-container>
-      <v-row justify="center">
-        <v-col class="text-center">
-          <v-btn class="for-button" outlined>春A</v-btn>
-          <v-btn class="for-button" outlined>春B</v-btn>
-          <v-btn class="for-button" outlined>春C</v-btn>
-          <v-btn class="for-button" outlined>秋A</v-btn>
-          <v-btn class="for-button" outlined>秋B</v-btn>
-          <v-btn class="for-button" outlined>秋C</v-btn>
-        </v-col>
-      </v-row>
-
-      <v-row justify="center">
-        <v-col>
-          <v-table>
-            <thead>
-              <tr>
-                <th class="color">科目番号</th>
-                <th class="color">曜日時限</th>
-                <th class="color">科目名</th>
-                <th class="color">教室名</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>GExxxxx</td>
-                <td>月56</td>
-                <td><a href="">ABC概論</a></td>
-                <td>7Axxx</td>
-              </tr>
-              <tr>
-                <td>GExxxxx</td>
-                <td>火34</td>
-                <td><a href="">DEF演習</a></td>
-                <td>7Cxxx</td>
-              </tr>
-            </tbody>
-          </v-table>
-        </v-col>
-      </v-row>
+      <!--Show listClasses result-->
+      <v-data-table
+        :headers="headers"
+        :items="classes"
+        :items-per-page="5"
+        class="elevation-1"
+      >
+        <template v-slot:top>
+          <v-toolbar flat>
+            <v-toolbar-title>履修登録</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+        </template>
+      </v-data-table>
     </v-container>
   </v-main>
 </template>
