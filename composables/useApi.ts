@@ -170,6 +170,7 @@ export function useApi() {
 
   return {
     callme,
+    sendmesms,
     createAccount,
     getAccount,
     updateAccount,
