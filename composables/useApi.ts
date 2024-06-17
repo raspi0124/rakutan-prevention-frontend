@@ -163,6 +163,11 @@ export function useApi() {
     return request(url);
   };
 
+  const sendmesms = async (): Promise<{ message: string }> => {
+    const url = "/api/sendsms";
+    return request(url);
+  };
+
   return {
     callme,
     createAccount,

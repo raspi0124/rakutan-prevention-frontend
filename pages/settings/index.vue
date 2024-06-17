@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useApi } from "@/composables/useApi";
   const { $toast } = useNuxtApp();
-  const { getAccount, updateAccount } = useApi();
+  const { getAccount, updateAccount, sendmesms } = useApi();
   //Data
   const isLoggedin = ref(false);
   const user = ref(null);
@@ -21,6 +21,16 @@
       if (response.status === 200) {
         console.log("Success");
         $toast.success("保存しました");
+        // Send sms
+        sendmesms().then((response) => {
+          if (response.status === 200) {
+            console.log("Success");
+            $toast.success("SMSの発信に成功しました");
+          } else {
+            console.log("Failed");
+            $toast.error("SMSの発信に失敗しました");
+          }
+        });
       } else {
         console.log("Failed");
         $toast.error("保存に失敗しました");
