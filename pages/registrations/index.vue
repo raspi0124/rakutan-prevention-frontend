@@ -3,7 +3,7 @@
   const user = ref(null);
   import { useApi } from "@/composables/useApi";
   const { $toast } = useNuxtApp();
-  const { listClasses } = useApi();
+  const { listClasses, registerClass } = useApi();
   const classes = ref();
   const search = ref("");
   const headers = {};
@@ -14,6 +14,23 @@
       classItem.class_name.toLowerCase().includes(search.value.toLowerCase())
     );
   });
+
+  const regClass = async (class_id) => {
+    console.log(class_id);
+    try {
+      const response = await registerClass(class_id);
+      if (response.status === 200) {
+        console.log("Success");
+        $toast.success("履修登録をしました");
+      } else {
+        console.log("Failed");
+        $toast.error("履修登録に失敗しました");
+      }
+    } catch (error) {
+      console.error("Error in regClass:", error);
+    }
+  };
+
   onMounted(async () => {
     console.log("mounted");
     const $auth = useAuth();
@@ -44,10 +61,9 @@
   <v-main>
     <triangleBanner title="履修の登録" paragraph="履修の登録を行います。" />
     <v-container>
-      <!--Show listClasses result-->
       <v-text-field
         v-model="search"
-        label="Search"
+        label="授業名で検索する"
         outlined
         dense
         class="mb-4"
