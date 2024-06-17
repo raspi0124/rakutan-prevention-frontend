@@ -3,7 +3,7 @@
 import { ref } from "vue";
 import type { Account, Class, ClassRegistration } from "../interfaces/useApi";
 
-const baseUrl = "http://localhost:5000";
+const baseUrl = "https://rp-api.raspi0124.dev";
 export function useApi() {
   // token are located inside cookie, as auth._token.auth0
   const token = ref<string | null>(null);
@@ -158,8 +158,13 @@ export function useApi() {
     };
     return request(url, options);
   };
+  const callme = async (): Promise<{ message: string }> => {
+    const url = "/api/callme";
+    return request(url);
+  };
 
   return {
+    callme,
     createAccount,
     getAccount,
     updateAccount,

@@ -1,6 +1,7 @@
 <script setup lang="ts">
   const isLoggedin = ref(false);
   const user = ref(null);
+  const $router = useRouter();
 
   definePageMeta({
     auth: false,
@@ -17,6 +18,7 @@
       user.value = $auth.user;
     } else {
       isLoggedin.value = false;
+      $router.push("/prev-first.html");
     }
   });
 </script>

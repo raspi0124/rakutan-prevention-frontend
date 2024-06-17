@@ -1,7 +1,9 @@
 <script setup lang="ts">
   const isLoggedin = ref(false);
   const user = ref(null);
-
+  import { useApi } from "@/composables/useApi";
+  const { $toast } = useNuxtApp();
+  const { getAccount, updateAccount } = useApi();
   onMounted(async () => {
     console.log("mounted");
     const $auth = useAuth();
