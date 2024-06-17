@@ -18,7 +18,7 @@
       user.value = $auth.user;
     } else {
       isLoggedin.value = false;
-      $router.push("/prev-first.html");
+      $router.push("/prev-first");
     }
   });
 </script>
