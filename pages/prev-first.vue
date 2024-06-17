@@ -12,13 +12,12 @@
 
   <body>
     <header>
-      <img src="icon.png" />
       <h2 class="title">Tsuku-Alert</h2>
       <ul></ul>
     </header>
 
     <div class="triangle"></div>
-    <div class="smart"><img src="smartphone.png" /></div>
+    <div class="smart"><img src="/smartphone.png" /></div>
     <center><p class="page-title">Tsuku-Alert</p></center>
     <p align="center" class="explain">
       「Tsuku-Alert」は筑波大生のためのスマート通知システムです。<br />
