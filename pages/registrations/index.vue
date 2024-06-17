@@ -4,8 +4,16 @@
   import { useApi } from "@/composables/useApi";
   const { $toast } = useNuxtApp();
   const { listClasses } = useApi();
-
   const classes = ref();
+  const search = ref("");
+  const headers = {};
+  const filteredClasses = computed(() => {
+    console.log(classes);
+    if (!classes.value) return [];
+    return classes.value.filter((classItem) =>
+      classItem.class_name.toLowerCase().includes(search.value.toLowerCase())
+    );
+  });
   onMounted(async () => {
     console.log("mounted");
     const $auth = useAuth();
@@ -37,9 +45,15 @@
     <triangleBanner title="履修の登録" paragraph="履修の登録を行います。" />
     <v-container>
       <!--Show listClasses result-->
+      <v-text-field
+        v-model="search"
+        label="Search"
+        outlined
+        dense
+        class="mb-4"
+      ></v-text-field>
       <v-data-table
-        :headers="headers"
-        :items="classes"
+        :items="filteredClasses"
         :items-per-page="5"
         class="elevation-1"
       >
