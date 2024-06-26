@@ -3,7 +3,7 @@
   import { useApi } from "@/composables/useApi";
 
   const { createAccount } = useApi();
-
+  const $router = useRouter();
   onMounted(async () => {
     const $route = useRoute();
     // if the url has query params "error" and "error_description", then stop the login process, and show the error
@@ -13,6 +13,7 @@
       const error = $route.query.error as string;
       const error_description = $route.query.error_description as string;
       console.error("Error:", error, error_description);
+      $router.push("/login");
       return;
     }
     const $auth = useAuth();
