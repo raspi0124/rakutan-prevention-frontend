@@ -96,6 +96,10 @@
 </script>
 
 <template>
+  <head>
+    <meta charset="UTF-8" />
+    <title>出欠更新 | Tsuku-Alert</title>
+  </head>
   <v-main>
     <headerNavi :isLoggedin="isLoggedin" :user="user" />
     <triangleBanner title="出欠席確認" paragraph="" />

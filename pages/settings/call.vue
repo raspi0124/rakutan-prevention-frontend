@@ -47,6 +47,10 @@
 </script>
 
 <template>
+  <head>
+    <meta charset="UTF-8" />
+    <title>通話テスト | Tsuku-Alert</title>
+  </head>
   <v-main>
     <headerNavi :isLoggedin="isLoggedin" :user="user" />
     <triangleBanner

@@ -113,6 +113,10 @@
 </script>
 
 <template>
+  <head>
+    <meta charset="UTF-8" />
+    <title>履修登録 | Tsuku-Alert</title>
+  </head>
   <header-navi :isLoggedin="isLoggedin" :user="user" />
   <v-main>
     <triangleBanner title="履修の登録" paragraph="履修の登録を行います。" />

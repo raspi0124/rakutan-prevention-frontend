@@ -67,6 +67,10 @@
 </script>
 
 <template>
+  <head>
+    <meta charset="UTF-8" />
+    <title>設定 | Tsuku-Alert</title>
+  </head>
   <v-main>
     <headerNavi :isLoggedin="isLoggedin" :user="user" />
     <triangleBanner title="各種設定" paragraph="各種設定等です" />

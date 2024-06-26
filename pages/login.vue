@@ -27,6 +27,10 @@
 </script>
 
 <template>
+  <head>
+    <meta charset="UTF-8" />
+    <title>ログイン | Tsuku-Alert</title>
+  </head>
   <div>ログイン処理中...</div>
 </template>
 
