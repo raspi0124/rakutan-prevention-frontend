@@ -16,6 +16,11 @@
   const dialog = ref(false);
   const updateAttendanceLoading = ref(false);
 
+  const absenceValidation = (value: number) => {
+    if (!value) return "欠席回数を入力してください";
+    if (!/^[0-9]*$/.test(value.toString())) return "数字で入力してください";
+    return true;
+  };
   const getAndInsertAttendances = async () => {
     try {
       console.log("TEST");
@@ -37,6 +42,11 @@
   const updateAttendance = async (class_id, absences) => {
     updateAttendanceLoading.value = true;
     try {
+      if (absenceValidation(absences) !== true) {
+        $toast.error(absenceValidation(absences));
+        updateAttendanceLoading.value = false;
+        return;
+      }
       console.log("TEST");
       const response = await updateRegisteredClass(
         user.value.sub,
@@ -128,6 +138,7 @@
                     v-model="item.absences"
                     :items="[0, 1, 2, 3, 4, 5]"
                     label="欠席回数"
+                    :rules="[absenceValidation]"
                   ></v-combobox>
                   <v-card-actions>
                     <v-btn color="red" text @click="dialog = false">

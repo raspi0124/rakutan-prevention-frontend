@@ -9,6 +9,12 @@
   const email = ref("");
   const phone_number = ref("");
 
+  const validatePhoneNumber = (value: string) => {
+    if (!value) return "電話番号を入力してください";
+    if (!/^[0-9]{10,11}$/.test(value))
+      return "電話番号は10桁または11桁の数字で入力してください";
+    return true;
+  };
   const getAndInsertPhoneNumber = async () => {
     console.log("TEST");
     const response = await getAccount(user.value.sub);
@@ -17,25 +23,29 @@
 
   const submit = () => {
     console.log(user.value.sub, phone_number.value);
-    updateAccount(user.value.sub, phone_number.value).then((response) => {
-      if (response.status === 200) {
-        console.log("Success");
-        $toast.success("保存しました");
-        // Send sms
-        sendmesms().then((response) => {
-          if (response.status === 200) {
-            console.log("Success");
-            $toast.success("SMSの発信に成功しました");
-          } else {
-            console.log("Failed");
-            $toast.error("SMSの発信に失敗しました");
-          }
-        });
-      } else {
-        console.log("Failed");
-        $toast.error("保存に失敗しました");
-      }
-    });
+    if (validatePhoneNumber(phone_number.value) === true) {
+      updateAccount(user.value.sub, phone_number.value).then((response) => {
+        if (response.status === 200) {
+          console.log("Success");
+          $toast.success("保存しました");
+          // Send sms
+          sendmesms().then((response) => {
+            if (response.status === 200) {
+              console.log("Success");
+              $toast.success("SMSの発信に成功しました");
+            } else {
+              console.log("Failed");
+              $toast.error("SMSの発信に失敗しました");
+            }
+          });
+        } else {
+          console.log("Failed");
+          $toast.error("保存に失敗しました");
+        }
+      });
+    } else {
+      $toast.error(validatePhoneNumber(phone_number.value));
+    }
   };
 
   onMounted(async () => {
@@ -85,8 +95,14 @@
                   v-model="phone_number"
                   outlined
                   dense
+                  :rules="[validatePhoneNumber]"
                 ></v-text-field>
               </v-form>
+              <div class="d-flex justify-end">
+                <v-btn color="secondary" to="/settings/call"
+                  >テスト通話を行う (先着順! 課金が切れ次第終了!!)</v-btn
+                >
+              </div>
             </v-card-text>
             <v-card-actions>
               <v-btn color="primary" @click="submit">保存</v-btn>

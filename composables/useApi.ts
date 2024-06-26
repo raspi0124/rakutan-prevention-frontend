@@ -126,7 +126,10 @@ export function useApi() {
   const registerClass = async (
     class_id: string,
     absences: number = 0
-  ): Promise<{ message: string }> => {
+  ): Promise<{
+    status: number;
+    message: string;
+  }> => {
     const url = `/api/class_registrations`;
     const options = {
       method: "POST",

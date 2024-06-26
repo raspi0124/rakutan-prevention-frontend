@@ -1,21 +1,75 @@
 <script setup lang="ts">
+  import { useApi } from "@/composables/useApi";
+
   const isLoggedin = ref(false);
   const user = ref(null);
-  import { useApi } from "@/composables/useApi";
-  const { $toast } = useNuxtApp();
   const { listClasses, registerClass } = useApi();
   const classes = ref();
   const search = ref("");
-  const headers = {};
+  const { $toast } = useNuxtApp();
+
+  const classheader = [
+    {
+      title: "科目番号",
+      value: "class_id",
+      align: "start",
+      sortable: true,
+    },
+    {
+      title: "授業名",
+      value: "class_name",
+      align: "start",
+      sortable: false,
+    },
+    {
+      title: "時限",
+      value: "class_period",
+      align: "start",
+      sortable: false,
+    },
+    {
+      title: "教室",
+      value: "class_room",
+      align: "start",
+      sortable: false,
+    },
+    {
+      title: "学期",
+      value: "class_semester",
+      align: "start",
+      sortable: false,
+    },
+    {
+      title: "アクション",
+      value: "actions",
+      align: "center",
+      sortable: false,
+    },
+  ];
+
   const filteredClasses = computed(() => {
-    console.log(classes);
     if (!classes.value) return [];
-    return classes.value.filter((classItem) =>
-      classItem.class_name.toLowerCase().includes(search.value.toLowerCase())
-    );
+    return classes.value
+      .filter((classItem: { class_name: string }) =>
+        classItem.class_name.toLowerCase().includes(search.value.toLowerCase())
+      )
+      .map((classItem: { class_semester: string }) => {
+        const class_semester = classItem.class_semester
+          .split("")
+          .map((semester: string) => {
+            if (semester === "S") return "春";
+            if (semester === "F") return "秋";
+            if (semester === "A") return "A";
+            if (semester === "B") return "B";
+            if (semester === "C") return "C";
+            return semester;
+          })
+          .join("");
+        return { ...classItem, class_semester };
+      });
   });
 
-  const regClass = async (class_id) => {
+  const regClass = async (class_id: string) => {
     console.log(class_id);
     try {
       const response = await registerClass(class_id);
@@ -28,6 +82,7 @@
       }
     } catch (error) {
       console.error("Error in regClass:", error);
+      $toast.error("履修登録に失敗しました: " + error);
     }
   };
 
@@ -56,6 +111,7 @@
     }
   });
 </script>
+
 <template>
   <header-navi :isLoggedin="isLoggedin" :user="user" />
   <v-main>
@@ -71,13 +127,18 @@
       <v-data-table
         :items="filteredClasses"
         :items-per-page="5"
+        :headers="classheader"
         class="elevation-1"
       >
         <template v-slot:top>
           <v-toolbar flat>
             <v-toolbar-title>履修登録</v-toolbar-title>
             <v-spacer></v-spacer>
+            <v-btn color="primary" to="/attendances">出欠登録</v-btn>
           </v-toolbar>
+        </template>
+        <template v-slot:item.actions="{ item }">
+          <v-btn color="primary" @click="regClass(item.class_id)">登録</v-btn>
         </template>
       </v-data-table>
     </v-container>
@@ -104,6 +165,7 @@
     color: #1b5461;
   }
 </style>
+
 <style scoped>
   .page-title {
     color: #165b6a;
