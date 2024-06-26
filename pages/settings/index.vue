@@ -104,7 +104,8 @@
               </v-form>
               <div class="d-flex justify-end">
                 <v-btn color="secondary" to="/settings/call"
-                  >テスト通話を行う (先着順! 課金が切れ次第終了!!)</v-btn
+                  >テスト通話を行う (先着順! 課金が切れ次第終了!
+                  面白いので気軽に試してみてね)</v-btn
                 >
               </div>
             </v-card-text>
